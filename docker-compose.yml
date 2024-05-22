@@ -2,10 +2,29 @@ version: "3.8"
 
 services:
   database:
-      image: mongo:latest
-      environment:
-        - MONGODB_DATABASE="FFXIV-gathering"
-      volumes:
-        - ./mongo:/data/db
-      ports:
-        - 27017:27017
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE="FFXIV-gathering"
+    volumes:
+      - ./mongo:/data/db
+    networks:
+      - ff-xiv-gathering-network
+  app:
+    container_name: ff-xiv-gathering-timer
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_PORT=27017
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    networks:
+      - ff-xiv-gathering-network
+
+networks:
+  ff-xiv-gathering-network:
+    external: true
+    name: ff-xiv-gathering-network
