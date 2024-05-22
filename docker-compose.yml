@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  database:
+      image: mongo:latest
+      environment:
+        - MONGODB_DATABASE="FFXIV-gathering"
+      volumes:
+        - ./mongo:/data/db
+      ports:
+        - 27017:27017
