@@ -17,24 +17,18 @@ export class GatheringPointService {
   async create(
     createGatheringPointDto: CreateGatheringPoint,
   ): Promise<GatheringPoint> {
-    const create = await this.gatheringPointModel.create(
-      createGatheringPointDto,
-    );
-    return create;
+    return this.gatheringPointModel.create(createGatheringPointDto);
   }
 
   async findAll(): Promise<GatheringPointDocument[]> {
-    return await this.gatheringPointModel.find().exec();
+    return this.gatheringPointModel.find().exec();
   }
 
   async findOne(id: string): Promise<GatheringPointDocument> {
-    return await this.gatheringPointModel.findOne({ _id: id }).exec();
+    return this.gatheringPointModel.findOne({ _id: id }).exec();
   }
 
   async delete(id: string): Promise<GatheringPointDocument> {
-    const deletePoint = await this.gatheringPointModel
-      .findByIdAndDelete({ _id: id })
-      .exec();
-    return deletePoint;
+    return this.gatheringPointModel.findByIdAndDelete({ _id: id }).exec();
   }
 }
